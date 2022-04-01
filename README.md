@@ -1,4 +1,4 @@
-# sb-sample-extension
+# Unbounce Smart Builder Dynamic Image Replacement App
 
 ## Developing apps locally using the Smart Builder
 
