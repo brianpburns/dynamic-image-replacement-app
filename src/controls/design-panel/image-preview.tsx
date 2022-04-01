@@ -1,8 +1,8 @@
 import React from 'react';
 import { useImageGallery } from 'smart-builder-sdk';
 
-import { ImageTrashIcon, PlusIcon } from '../icons';
-import { IconButtonStyled, ImagePreviewContainer, ImgControls } from '../styled';
+import { ImageTrashIcon, PlusIcon } from './icons';
+import { IconButtonStyled, ImagePreviewContainer, ImgControls } from './styled';
 
 export const imagePreviewFormatter = (imagePreview: string | null): string => {
   if (imagePreview === null || imagePreview === '') {

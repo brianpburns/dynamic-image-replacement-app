@@ -8,14 +8,20 @@ const schema = Schema.object({
     src: Schema.string(),
     alt: Schema.string(),
   }),
-  queryParam: Schema.string(),
+  queryParam: Schema.string().default('animal'),
   images: Schema.array(
     Schema.object({
       src: Schema.string(),
       alt: Schema.string(),
       queryStringValue: Schema.string(),
     }),
-  ),
+  ).default([
+    {
+      src: 'https://upload.wikimedia.org/wikipedia/commons/2/28/HelloWorld.svg',
+      alt: 'test',
+      queryStringValue: 'dog',
+    },
+  ]),
 })
   .extendMutate((data: any) => {
     return {

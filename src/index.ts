@@ -1,5 +1,5 @@
 import { registerComponent } from 'ub-shared';
 
-import { Component } from './dynamic-image-replacement';
+import { Component } from './component';
 
 registerComponent(Component);

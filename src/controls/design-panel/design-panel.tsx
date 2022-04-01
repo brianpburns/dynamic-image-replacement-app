@@ -1,12 +1,12 @@
 import React from 'react';
 import { ControlPanelProps } from 'unbounce-smart-builder-sdk-types';
 
-import { StyledWrapper } from '../styled';
+import { DataStructure } from '../../types';
 import { AltText } from './alt-text';
-import { DataStructure } from './dynamic-image-replacement';
 import { ImagePreview } from './image-preview';
+import { StyledWrapper } from './styled';
 
-export const Panel = ({ data: { defaultImage }, dispatch }: ControlPanelProps<DataStructure>) => {
+export const DesignPanel = ({ data: { defaultImage }, dispatch }: ControlPanelProps<DataStructure>) => {
   const { src, alt } = defaultImage;
 
   const onSrcChange = (newSrc: string | null) => {

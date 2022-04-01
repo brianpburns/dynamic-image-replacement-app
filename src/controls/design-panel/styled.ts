@@ -1,15 +1,7 @@
 import styled from 'styled-components';
 
-export const ImageContainer = styled.div<{ hasImage?: boolean; isControlShown?: boolean }>`
-  overflow: hidden;
-  ${({ hasImage }) => (!hasImage ? 'height: 100%;' : '')}
-  visibility: ${({ isControlShown }) => (isControlShown ? 'hidden' : 'visible')};
-`;
-
-export const Image = styled.img`
-  display: block;
-  max-width: 100%;
-  max-height: 100%;
+export const StyledWrapper = styled.div`
+  margin-bottom: 16px;
 `;
 
 export const ImagePreviewContainer = styled.div<{
@@ -50,8 +42,4 @@ export const IconButtonStyled = styled.button`
   border: none;
   background-color: transparent;
   cursor: pointer;
-`;
-
-export const StyledWrapper = styled.div`
-  margin-bottom: 16px;
 `;
