@@ -9,6 +9,7 @@ const schema = Schema.object({
     alt: Schema.string(),
   }),
   queryParam: Schema.string().default('animal'),
+  numOptions: Schema.number().default(2),
   images: Schema.array(
     Schema.object({
       src: Schema.string(),
