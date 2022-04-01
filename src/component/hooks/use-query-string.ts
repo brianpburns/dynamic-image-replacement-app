@@ -2,19 +2,23 @@ import queryString from 'query-string';
 import { useEffect, useState } from 'react';
 import { Mode } from 'unbounce-smart-builder-sdk-types';
 
-import { DataStructure } from '../../types';
+import { DataStructure, Option } from '../../types';
 
 export const useQueryString = (data: DataStructure, mode: Mode) => {
-  const { defaultImage, queryParam, images } = data;
-  const [image, setImage] = useState(defaultImage);
+  const { queryParam, options, defaultSrc, defaultAlt } = data;
+  const [option, setOption] = useState<Option | null>();
   const params = queryString.parse(location.search);
 
   useEffect(() => {
-    if (params[queryParam] && mode.type !== 'edit') {
-      const matchingImage = images.find((img) => img.queryStringValue === params[queryParam]);
-      if (matchingImage) setImage(matchingImage);
+    if (mode.type === 'edit') {
+      setOption(null);
+    } else if (params[queryParam]) {
+      const matchingOption = options.find((img) => img.queryStringValue === params[queryParam]);
+      if (matchingOption) {
+        setOption(matchingOption);
+      }
     }
-  }, [params, queryParam, images, mode.type]);
+  }, [mode.type, options, params, queryParam]);
 
-  return { image };
+  return { option: option || { src: defaultSrc, alt: defaultAlt } };
 };

@@ -3,10 +3,10 @@ import { Label } from 'smart-builder-components';
 import { ControlPanelProps } from 'unbounce-smart-builder-sdk-types';
 
 import { DataStructure } from '../../types';
-import { ButtomSelector, Container, StyledInputField, TotalImages, TotalImagesWrapper } from './styled';
+import { ButtomSelector, Container, StyledInputField, TotalOptions, TotalOptionsWrapper } from '../styled';
 
-export const OptionsPanel = ({
-  data: { queryParam, numOptions, images },
+export const SettingsPanel = ({
+  data: { queryParam, numOptions, options },
   dispatch,
 }: ControlPanelProps<DataStructure>) => {
   const [tempParam, setTempParam] = useState(queryParam);
@@ -16,12 +16,12 @@ export const OptionsPanel = ({
   };
 
   const addOption = () => {
-    const imagesLength = images.length;
+    const optionsLength = options.length;
 
     dispatch((api) => {
-      if (imagesLength <= numOptions && imagesLength < 10) {
+      if (optionsLength <= numOptions && optionsLength < 10) {
         // .push doesn't exist on api
-        (api as any).get('images').push({ src: '', alt: '', queryStringValue: '' });
+        (api as any).get('options').push({ src: '', alt: '', queryStringValue: '' });
         api.get('numOptions').set(numOptions + 1);
       } else if (numOptions < 10) {
         api.get('queryParam').set(numOptions + 1);
@@ -41,19 +41,19 @@ export const OptionsPanel = ({
     <Container data-testid="carousel-options">
       <Label>Query Parameter</Label>
       <StyledInputField
-        data-testid="promo-video-input"
+        data-testid="query-parameter-input"
         value={tempParam}
         onChange={(e) => setTempParam(e.currentTarget.value)}
         onBlur={updateQueryParam}
-        placeholder="https://promo.com/share/623434sdrs4365c758c76bed2"
+        placeholder="parameter"
       />
       <label htmlFor="total-imate-selector">
         Number of Options
-        <TotalImagesWrapper>
+        <TotalOptionsWrapper>
           <ButtomSelector onClick={() => removeOption()}>-</ButtomSelector>
-          <TotalImages>{numOptions}</TotalImages>
+          <TotalOptions>{numOptions}</TotalOptions>
           <ButtomSelector onClick={() => addOption()}>+</ButtomSelector>
-        </TotalImagesWrapper>
+        </TotalOptionsWrapper>
       </label>
     </Container>
   );

@@ -2,16 +2,18 @@ import React from 'react';
 import { ControlPanelProps } from 'unbounce-smart-builder-sdk-types';
 
 import { DataStructure } from '../../types';
+import { FieldsWrapper, StyledWrapper } from '../styled';
 import { AltText } from './alt-text';
 import { ImagePreview } from './image-preview';
-import { StyledWrapper } from './styled';
+import { QueryParamOption } from './query-param-option';
 
-export const DesignPanel = ({ data: { defaultImage }, dispatch }: ControlPanelProps<DataStructure>) => {
-  const { src, alt } = defaultImage;
-
+export const DesignPanel = ({
+  data: { options, defaultSrc, defaultAlt },
+  dispatch,
+}: ControlPanelProps<DataStructure>) => {
   const onSrcChange = (newSrc: string | null) => {
-    dispatch((api: any) => {
-      api.updateDefaultSrc(newSrc);
+    dispatch((api) => {
+      api.get('defaultSrc').set(newSrc || '');
     });
   };
 
@@ -23,11 +25,16 @@ export const DesignPanel = ({ data: { defaultImage }, dispatch }: ControlPanelPr
 
   return (
     <>
-      <h2>Image</h2>
-      <StyledWrapper>
-        <ImagePreview imagePreview={src} onChange={onSrcChange} />
-      </StyledWrapper>
-      <AltText value={alt} onBlur={onAltChange} />
+      <FieldsWrapper separator={false}>
+        <h2>Default Image</h2>
+        <StyledWrapper>
+          <ImagePreview imagePreview={defaultSrc} onChange={onSrcChange} />
+        </StyledWrapper>
+        <AltText value={defaultAlt} onBlur={onAltChange} />
+      </FieldsWrapper>
+      {options.map((option, index) => (
+        <QueryParamOption key={index} index={index} option={option} dispatch={dispatch} />
+      ))}
     </>
   );
 };

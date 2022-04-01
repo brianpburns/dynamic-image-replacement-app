@@ -2,7 +2,7 @@ import React from 'react';
 import { ControlButton, WithControls } from 'smart-builder-sdk';
 import { ComponentProps, WithStylesProps } from 'unbounce-smart-builder-sdk-types';
 
-import { DesignPanel, OptionsPanel } from '../../controls';
+import { DesignPanel, SettingsPanel } from '../../controls';
 import { DataStructure } from '../../types';
 import { useQueryString } from '../hooks/use-query-string';
 import { BrushIcon, CogIcon } from '../icons';
@@ -16,20 +16,13 @@ const DynamicImageReplacement = ({
   isControlShown,
   mode,
 }: ComponentProps<DataStructure, WithStylesProps>) => {
-  const { defaultImage } = data;
-  const { image } = useQueryString(data, mode);
+  const { defaultSrc } = data;
+  const { option } = useQueryString(data, mode);
 
   return (
     <>
-      <ImageContainer hasImage={!!defaultImage.src} isControlShown={isControlShown}>
-        <Image
-          id={entityId}
-          data-testid="image"
-          // src={data.transformedSrc || data.src}
-          src={image.src}
-          alt={image.alt}
-          className={className}
-        />
+      <ImageContainer hasImage={!!defaultSrc} isControlShown={isControlShown}>
+        <Image id={entityId} data-testid="image" src={option.src} alt={option.alt} className={className} />
       </ImageContainer>
       <script
         dangerouslySetInnerHTML={{
@@ -41,7 +34,7 @@ const DynamicImageReplacement = ({
 };
 
 const designLabel = 'Design';
-const optionsLabel = 'Settings';
+const settingsLabel = 'Settings';
 
 export default WithControls(DynamicImageReplacement, [
   {
@@ -56,12 +49,12 @@ export default WithControls(DynamicImageReplacement, [
   },
   {
     id: 'settings',
-    label: optionsLabel,
+    label: settingsLabel,
     Button: (props) => (
-      <ControlButton label={optionsLabel} active={false} {...props}>
+      <ControlButton label={settingsLabel} active={false} {...props}>
         <CogIcon />
       </ControlButton>
     ),
-    Panel: OptionsPanel,
+    Panel: SettingsPanel,
   },
 ]);

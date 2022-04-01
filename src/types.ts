@@ -1,6 +1,13 @@
+export interface Option {
+  src: string;
+  alt: string;
+  queryStringValue: string;
+}
+
 export type DataStructure = {
-  defaultImage: { src: string; alt: string };
   queryParam: string;
+  defaultSrc: string;
+  defaultAlt: string;
   numOptions: number;
-  images: { src: string; alt: string; queryStringValue: string }[];
+  options: Option[];
 };

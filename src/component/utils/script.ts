@@ -1,20 +1,19 @@
 import { DataStructure } from '../../types';
 
-export const generateScript = (entityId: string, { queryParam, images }: DataStructure) => {
+export const generateScript = (entityId: string, { queryParam, options }: DataStructure) => {
   return `
-    const imagesArray = ${JSON.stringify(images)};
-    console.log('images', imagesArray);
+    const optionsArray = ${JSON.stringify(options)};
     const urlSearchParams = new URLSearchParams(window.location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
 
     if (params['${queryParam}']) {
-      const matchingImage = imagesArray.find((img) => img.queryStringValue === params['${queryParam}']);
+      const matchingOption = optionsArray.find((option) => option.queryStringValue === params['${queryParam}']);
 
-      if (matchingImage) {
+      if (matchingOption) {
         const imageElement = document.querySelector('#${entityId} img');
 
-        imageElement.src = matchingImage.src;
-        imageElement.alt = matchingImage.alt;
+        imageElement.src = matchingOption.src;
+        imageElement.alt = matchingOption.alt;
       }
     }
   `;
