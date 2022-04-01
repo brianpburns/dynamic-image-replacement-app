@@ -1,40 +1,33 @@
 import React from 'react';
 import { ControlPanelProps } from 'unbounce-smart-builder-sdk-types';
 
-import { DataStructure } from './hello-world';
+import { StyledWrapper } from '../styled';
+import { AltText } from './alt-text';
+import { DataStructure } from './dynamic-image-replacement';
+import { ImagePreview } from './image-preview';
 
-export const Panel = ({ dispatch }: ControlPanelProps<DataStructure>) => (
-  <div data-testid="custom-text-align-panel">
-    Where do you want that text
-    <button
-      onClick={() =>
-        dispatch((api) => {
-          api.get('styles').set({ textAlign: 'left' });
-        })
-      }
-      data-testid={`button-text-align-left`}
-    >
-      Left
-    </button>
-    <button
-      onClick={() =>
-        dispatch((api) => {
-          api.get('styles').set({ textAlign: 'center' });
-        })
-      }
-      data-testid={`button-text-align-center`}
-    >
-      Center
-    </button>
-    <button
-      onClick={() =>
-        dispatch((api) => {
-          api.get('styles').set({ textAlign: 'right' });
-        })
-      }
-      data-testid={`button-text-align-right`}
-    >
-      Right
-    </button>
-  </div>
-);
+export const Panel = ({ data: { defaultImage }, dispatch }: ControlPanelProps<DataStructure>) => {
+  const { src, alt } = defaultImage;
+
+  const onSrcChange = (newSrc: string | null) => {
+    dispatch((api: any) => {
+      api.updateDefaultSrc(newSrc);
+    });
+  };
+
+  const onAltChange = (newAlt: string) => {
+    dispatch((api: any) => {
+      api.updateDefaultAlt(newAlt);
+    });
+  };
+
+  return (
+    <>
+      <h2>Image</h2>
+      <StyledWrapper>
+        <ImagePreview imagePreview={src} onChange={onSrcChange} />
+      </StyledWrapper>
+      <AltText value={alt} onBlur={onAltChange} />
+    </>
+  );
+};

@@ -1,44 +1,57 @@
 import styled from 'styled-components';
 
-export const CloseButton = styled.button`
-  align-items: center;
-  background: #252525;
+export const ImageContainer = styled.div<{ hasImage?: boolean; isControlShown?: boolean }>`
+  overflow: hidden;
+  ${({ hasImage }) => (!hasImage ? 'height: 100%;' : '')}
+  visibility: ${({ isControlShown }) => (isControlShown ? 'hidden' : 'visible')};
+`;
+
+export const Image = styled.img`
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+`;
+
+export const ImagePreviewContainer = styled.div<{
+  imagePreview: string | null;
+}>`
+  width: 100%;
+  height: 145px;
+  ${({ imagePreview }) => imagePreview && `background-image: ${imagePreview};`};
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+  .image-overlay {
+    background-color: ${({ imagePreview }) => (imagePreview !== null ? '#404040' : '#aaaaaa')};
+    ${({ imagePreview }) => (imagePreview !== null ? 'opacity: 0.5;' : 'opacity: 0')};
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+`;
+
+export const ImgControls = styled.div`
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 32px;
+  justify-content: end;
+  z-index: 12;
+`;
+
+export const IconButtonStyled = styled.button`
   border: none;
-  color: #fff;
-  display: flex;
-  font-size: 30px;
-  height: 50px;
-  justify-content: center;
-  line-height: 30px;
-  padding: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 50px;
+  background-color: transparent;
+  cursor: pointer;
 `;
 
-export const Modal = styled.div`
-  background: #fff;
-  display: flex;
-  flex-direction: column;
-  height: 200px;
-  justify-content: center;
-  left: 50%;
-  padding: 30px;
-  position: fixed;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 300px;
-  z-index: 23;
-`;
-
-export const Overlay = styled.div`
-  background: #000;
-  bottom: 0;
-  left: 0;
-  opacity: 0.3;
-  position: fixed;
-  right: 0;
-  top: 0;
-  z-index: 22;
+export const StyledWrapper = styled.div`
+  margin-bottom: 16px;
 `;

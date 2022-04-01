@@ -1,28 +1,46 @@
-import React from 'react';
 import { component, Schema } from 'ub-shared';
 
-import HelloWorld from './components/hello-world';
+import DynamicImageReplacement from './components/dynamic-image-replacement';
 import { migrations } from './migrations';
 
 const schema = Schema.object({
-  firstName: Schema.string().noControls(),
-  lastName: Schema.string().groupControls({
-    icon: <span>LN</span>,
-    label: 'Last Name',
+  defaultImage: Schema.object({
+    src: Schema.string(),
+    alt: Schema.string(),
   }),
-  styles: Schema.newStyle({
-    textAlign: {
-      layoutSpecific: true,
-    },
-  }),
-});
+  queryParam: Schema.string(),
+  images: Schema.array(
+    Schema.object({
+      src: Schema.string(),
+      alt: Schema.string(),
+      queryStringValue: Schema.string(),
+    }),
+  ),
+})
+  .extendMutate((data: any) => {
+    return {
+      updateDefaultSrc(next: string) {
+        data.get('defaultImage').get('src').set(next);
+      },
+      updateDefaultAlt(next: string) {
+        data.get('defaultImage').get('alt').set(next);
+      },
+      updateImageSrc(next: string, index: number) {
+        data.get('images').get(index).get('src').set(next);
+      },
+      updateImageAlt(next: string, index: number) {
+        data.get('images').get(index).get('alt').set(next);
+      },
+    };
+  })
+  .noControls();
 
 export const Component = component({
-  componentTypeId: 'helloWorld', // This is the id for your component in our system, must be camelCase. It is used to reference the component in places like templates
-  displayName: 'HelloWorld',
+  componentTypeId: 'dynamicImageReplacement',
+  displayName: 'Dynamic Image Replacement',
   tags: ['newControls', 'swappable'],
   schema,
-  Component: HelloWorld,
+  Component: DynamicImageReplacement,
   version: migrations.length,
   migrations,
 });
