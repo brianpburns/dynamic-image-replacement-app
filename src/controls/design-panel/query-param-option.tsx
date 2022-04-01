@@ -3,8 +3,9 @@ import { Label } from 'smart-builder-components';
 import { DataStructure, Option } from 'src/types';
 import { ControlPanelProps } from 'unbounce-smart-builder-sdk-types';
 
-import { StyledInputField } from '../styled';
+import { StyledInputField, Error } from '../styled';
 import { FieldsWrapper, StyledWrapper } from '../styled';
+import { isValidParam } from '../utils/is-valid-param';
 import { AltText } from './alt-text';
 import { ImagePreview } from './image-preview';
 
@@ -17,6 +18,7 @@ interface Props {
 export const QueryParamOption = ({ option, index, dispatch }: Props) => {
   const { src, alt, queryStringValue } = option;
   const [tempValue, setTempValue] = useState(queryStringValue);
+  const [error, setError] = useState(!isValidParam(queryStringValue));
 
   const onSrcChange = (newSrc: string | null) => {
     dispatch((api: any) => {
@@ -31,9 +33,16 @@ export const QueryParamOption = ({ option, index, dispatch }: Props) => {
   };
 
   const onQueryStringChange = () => {
-    dispatch((api: any) => {
-      api.updateQueryString(tempValue, index);
-    });
+    if (isValidParam(tempValue)) {
+      dispatch((api: any) => {
+        api.updateQueryString(tempValue, index);
+      });
+    }
+  };
+
+  const onChange = (newValue: string) => {
+    setTempValue(newValue);
+    setError(!isValidParam(newValue));
   };
 
   return (
@@ -46,10 +55,15 @@ export const QueryParamOption = ({ option, index, dispatch }: Props) => {
       <StyledInputField
         data-testid="query-param-value-input"
         value={tempValue}
-        onChange={(e) => setTempValue(e.currentTarget.value)}
+        onChange={(e) => onChange(e.currentTarget.value)}
         onBlur={onQueryStringChange}
         placeholder="value"
       />
+      {error && (
+        <Error>
+          {"Only include the query parameter value, which comes after '='. Do not include '?', '&', or '='"}
+        </Error>
+      )}
       <AltText value={alt} onBlur={onAltChange} />
     </FieldsWrapper>
   );

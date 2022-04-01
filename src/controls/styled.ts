@@ -67,6 +67,7 @@ export const StyledInputField = styled(InputField)`
   font-size: 14px;
   font-weight: 300;
   color: #606060;
+  margin-bottom: 16px;
 `;
 
 export const Container = styled.div`
@@ -109,4 +110,10 @@ export const TotalOptions = styled.div`
   padding: 0 8px;
   text-align: center;
   line-height: 24px;
+`;
+
+export const Error = styled.p`
+  color: #ff3e51;
+  font-size: 14px;
+  margin-top: 4px;
 `;
