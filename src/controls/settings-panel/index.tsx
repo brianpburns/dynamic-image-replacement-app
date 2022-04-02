@@ -33,7 +33,7 @@ export const SettingsPanel = ({
 
   const removeOption = () => {
     dispatch((api) => {
-      if (numOptions > 2) {
+      if (numOptions > 1) {
         api.get('numOptions').set(numOptions - 1);
       }
     });
