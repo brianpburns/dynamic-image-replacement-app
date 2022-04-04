@@ -5,8 +5,8 @@
   "isBeta": true,
   "isSwappable": true,
   "type": "utility",
-  "description": "Dynamically replace images based on query params",
-  "iconUrl": "https://upload.wikimedia.org/wikipedia/commons/2/28/HelloWorld.svg",
+  "description": "Replace images using query params",
+  "iconUrl": "https://app-assets-unbounce-com.s3.amazonaws.com/content-smart-builder-apps/dynamic-image-replacement/icon.svg",
   "categories": [],
   "files": [],
   "externalScripts": ["http://localhost:8083/index.js"]
