@@ -3,7 +3,8 @@ import { Label } from 'smart-builder-components';
 import { DataStructure, Option } from 'src/types';
 import { ControlPanelProps } from 'unbounce-smart-builder-sdk-types';
 
-import { StyledInputField, Error } from '../styled';
+import { QuestionMark } from '../icons';
+import { StyledInputField, Error, ColouredSpan, LabelWrapper, StyledTooltip } from '../styled';
 import { FieldsWrapper, StyledWrapper } from '../styled';
 import { isValidParam } from '../utils/is-valid-param';
 import { AltText } from './alt-text';
@@ -47,11 +48,17 @@ export const QueryParamOption = ({ option, index, dispatch }: Props) => {
 
   return (
     <FieldsWrapper separator={true} key={index}>
-      <h2>Option #{index + 1}</h2>
+      <h2>Option #{index + 2}</h2>
       <StyledWrapper>
         <ImagePreview imagePreview={src} onChange={onSrcChange} />
       </StyledWrapper>
-      <Label>Query Parameter Value</Label>
+      <LabelWrapper>
+        <Label>Query Parameter Value</Label>
+        <StyledTooltip xAlign="left" yAlign="top" trigger={<QuestionMark />}>
+          <ColouredSpan color="#EDEDED">landing page url</ColouredSpan>?
+          <ColouredSpan color="#FFCE00">parameter</ColouredSpan>=<ColouredSpan color="#27CC8D">value</ColouredSpan>
+        </StyledTooltip>
+      </LabelWrapper>
       <StyledInputField
         data-testid="query-param-value-input"
         value={tempValue}
