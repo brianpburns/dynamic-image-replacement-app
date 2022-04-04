@@ -7,6 +7,7 @@ import { DataStructure } from '../../types';
 import { useQueryString } from '../hooks/use-query-string';
 import { BrushIcon, CogIcon } from '../icons';
 import { Image, ImageContainer } from '../styled';
+import { placeholderImageSrc } from '../utils/placeholder-image-src';
 import { generateScript } from '../utils/script';
 
 const DynamicImageReplacement = ({
@@ -22,7 +23,13 @@ const DynamicImageReplacement = ({
   return (
     <>
       <ImageContainer hasImage={!!defaultSrc} isControlShown={isControlShown}>
-        <Image id={entityId} data-testid="image" src={option.src} alt={option.alt} className={className} />
+        <Image
+          id={entityId}
+          data-testid="image"
+          src={option.src || placeholderImageSrc}
+          alt={option.alt}
+          className={className}
+        />
       </ImageContainer>
       <script
         dangerouslySetInnerHTML={{

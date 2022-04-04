@@ -3,7 +3,18 @@ import { Label } from 'smart-builder-components';
 import { ControlPanelProps } from 'unbounce-smart-builder-sdk-types';
 
 import { DataStructure } from '../../types';
-import { ButtomSelector, Container, StyledInputField, TotalOptions, TotalOptionsWrapper, Error } from '../styled';
+import { QuestionMark } from '../icons';
+import {
+  ButtomSelector,
+  ColouredSpan,
+  Container,
+  Error,
+  LabelWrapper,
+  StyledInputField,
+  StyledTooltip,
+  TotalOptions,
+  TotalOptionsWrapper,
+} from '../styled';
 import { isValidParam } from '../utils/is-valid-param';
 
 export const SettingsPanel = ({
@@ -22,7 +33,7 @@ export const SettingsPanel = ({
 
     dispatch((api) => {
       if (optionsLength <= numOptions && optionsLength < 10) {
-        // .push doesn't exist on api
+        // Type error for .push not existing on api
         (api as any).get('options').push({ src: '', alt: '', queryStringValue: '' });
         api.get('numOptions').set(numOptions + 1);
       } else if (numOptions < 10) {
@@ -46,7 +57,13 @@ export const SettingsPanel = ({
 
   return (
     <Container data-testid="carousel-options">
-      <Label>Query Parameter</Label>
+      <LabelWrapper>
+        <Label>Query Parameter</Label>
+        <StyledTooltip xAlign="center" yAlign="bottom" trigger={<QuestionMark />}>
+          <ColouredSpan color="#EDEDED">landing page url</ColouredSpan>?
+          <ColouredSpan color="#27CC8D">parameter</ColouredSpan>=<ColouredSpan color="#FFCE00">value</ColouredSpan>
+        </StyledTooltip>
+      </LabelWrapper>
       <StyledInputField
         data-testid="query-parameter-input"
         value={tempParam}
@@ -61,7 +78,7 @@ export const SettingsPanel = ({
         Number of Options
         <TotalOptionsWrapper>
           <ButtomSelector onClick={() => removeOption()}>-</ButtomSelector>
-          <TotalOptions>{numOptions}</TotalOptions>
+          <TotalOptions>{numOptions + 1}</TotalOptions>
           <ButtomSelector onClick={() => addOption()}>+</ButtomSelector>
         </TotalOptionsWrapper>
       </label>

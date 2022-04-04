@@ -1,4 +1,4 @@
-import { InputField } from 'smart-builder-components';
+import { InputField, Tooltip } from 'smart-builder-components';
 import styled from 'styled-components';
 
 export const StyledWrapper = styled.div`
@@ -116,4 +116,26 @@ export const Error = styled.p`
   color: #ff3e51;
   font-size: 14px;
   margin-top: 4px;
+`;
+
+export const LabelWrapper = styled.div`
+  display: flex;
+`;
+
+export const StyledTooltip = styled(Tooltip)`
+  z-index: 13;
+  margin-left: 5px;
+
+  div[class^='popout-container'] {
+    font-family: Source Sans Pro, system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    color: #f9f8f7;
+    line-height: 16px;
+    display: flex;
+  }
+`;
+
+export const ColouredSpan = styled.span<{ color: string }>`
+  color: ${({ color }) => color};
 `;
