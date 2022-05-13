@@ -5,7 +5,7 @@ import { ControlPanelProps } from 'unbounce-smart-builder-sdk-types';
 import { DataStructure } from '../../types';
 import { QuestionMark } from '../icons';
 import {
-  ButtomSelector,
+  IncrementButton,
   Container,
   Error,
   LabelWrapper,
@@ -31,20 +31,23 @@ export const SettingsPanel = ({
     const optionsLength = options.length;
 
     dispatch((api) => {
-      if (optionsLength <= numOptions && optionsLength < 10) {
+      if (optionsLength < 4) {
         // Type error for .push not existing on api
         (api as any).get('options').push({ src: '', alt: '', queryStringValue: '' });
         api.get('numOptions').set(numOptions + 1);
-      } else if (numOptions < 10) {
-        api.get('queryParam').set(numOptions + 1);
+      } else if (numOptions < 4) {
+        api.get('numOptions').set(numOptions + 1);
       }
     });
   };
 
   const removeOption = () => {
-    dispatch((api) => {
+    dispatch((api: any) => {
       if (numOptions > 1) {
         api.get('numOptions').set(numOptions - 1);
+        api.updateSrc('', numOptions - 1);
+        api.updateAlt('', numOptions - 1);
+        api.updateQueryString('', numOptions - 1);
       }
     });
   };
@@ -75,9 +78,13 @@ export const SettingsPanel = ({
       <label htmlFor="total-imate-selector">
         Number of Images
         <TotalOptionsWrapper>
-          <ButtomSelector onClick={() => removeOption()}>-</ButtomSelector>
+          <IncrementButton onClick={() => removeOption()} disabled={numOptions === 1}>
+            -
+          </IncrementButton>
           <TotalOptions>{numOptions + 1}</TotalOptions>
-          <ButtomSelector onClick={() => addOption()}>+</ButtomSelector>
+          <IncrementButton onClick={() => addOption()} disabled={numOptions === 4}>
+            +
+          </IncrementButton>
         </TotalOptionsWrapper>
       </label>
     </Container>

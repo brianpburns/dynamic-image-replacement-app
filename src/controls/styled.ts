@@ -87,7 +87,7 @@ export const TotalOptionsWrapper = styled.div`
   align-items: end;
 `;
 
-export const ButtomSelector = styled.button`
+export const IncrementButton = styled.button`
   background-color: #efefef;
   border: 1px solid #efefef;
   color: #3c4043;
@@ -103,6 +103,11 @@ export const ButtomSelector = styled.button`
   }
   &:focus {
     outline: none;
+  }
+  &:disabled {
+    cursor: default;
+    background-color: #fff;
+    color: #3c4043;
   }
 `;
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { ControlButton, WithControls } from 'smart-builder-sdk';
 import { ComponentProps, WithStylesProps } from 'unbounce-smart-builder-sdk-types';
 
-import { DesignPanel, SettingsPanel } from '../../controls';
+import { ImagesPanel, SettingsPanel } from '../../controls';
 import { DataStructure } from '../../types';
 import { useQueryString } from '../hooks/use-query-string';
 import { ImagesIcon, CogIcon } from '../icons';
@@ -62,6 +62,6 @@ export default WithControls(DynamicImageReplacement, [
         <ImagesIcon />
       </ControlButton>
     ),
-    Panel: DesignPanel,
+    Panel: ImagesPanel,
   },
 ]);

@@ -7,8 +7,8 @@ import { AltText } from './alt-text';
 import { ImagePreview } from './image-preview';
 import { QueryParamOption } from './query-param-option';
 
-export const DesignPanel = ({
-  data: { options, defaultSrc, defaultAlt },
+export const ImagesPanel = ({
+  data: { options, defaultSrc, defaultAlt, numOptions },
   dispatch,
 }: ControlPanelProps<DataStructure>) => {
   const onSrcChange = (newSrc: string | null) => {
@@ -18,8 +18,8 @@ export const DesignPanel = ({
   };
 
   const onAltChange = (newAlt: string) => {
-    dispatch((api: any) => {
-      api.updateDefaultAlt(newAlt);
+    dispatch((api) => {
+      api.get('defaultAlt').set(newAlt);
     });
   };
 
@@ -32,9 +32,10 @@ export const DesignPanel = ({
         </StyledWrapper>
         <AltText value={defaultAlt} onBlur={onAltChange} />
       </FieldsWrapper>
-      {options.map((option, index) => (
-        <QueryParamOption key={index} index={index} option={option} dispatch={dispatch} />
-      ))}
+      {options.map(
+        (option, index) =>
+          index < numOptions && <QueryParamOption key={index} index={index} option={option} dispatch={dispatch} />,
+      )}
     </>
   );
 };
