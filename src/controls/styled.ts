@@ -135,7 +135,3 @@ export const StyledTooltip = styled(Tooltip)`
     display: flex;
   }
 `;
-
-export const ColouredSpan = styled.span<{ color: string }>`
-  color: ${({ color }) => color};
-`;

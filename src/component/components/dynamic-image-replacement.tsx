@@ -5,7 +5,7 @@ import { ComponentProps, WithStylesProps } from 'unbounce-smart-builder-sdk-type
 import { DesignPanel, SettingsPanel } from '../../controls';
 import { DataStructure } from '../../types';
 import { useQueryString } from '../hooks/use-query-string';
-import { BrushIcon, CogIcon } from '../icons';
+import { ImagesIcon, CogIcon } from '../icons';
 import { Image, ImageContainer } from '../styled';
 import { placeholderImageSrc } from '../utils/placeholder-image-src';
 import { generateScript } from '../utils/script';
@@ -40,20 +40,10 @@ const DynamicImageReplacement = ({
   );
 };
 
-const designLabel = 'Design';
+const imagesLabel = 'Images';
 const settingsLabel = 'Settings';
 
 export default WithControls(DynamicImageReplacement, [
-  {
-    id: 'design',
-    label: designLabel,
-    Button: (props) => (
-      <ControlButton label={designLabel} active={false} {...props}>
-        <BrushIcon />
-      </ControlButton>
-    ),
-    Panel: DesignPanel,
-  },
   {
     id: 'settings',
     label: settingsLabel,
@@ -63,5 +53,15 @@ export default WithControls(DynamicImageReplacement, [
       </ControlButton>
     ),
     Panel: SettingsPanel,
+  },
+  {
+    id: 'design',
+    label: imagesLabel,
+    Button: (props) => (
+      <ControlButton label={imagesLabel} active={false} {...props}>
+        <ImagesIcon />
+      </ControlButton>
+    ),
+    Panel: DesignPanel,
   },
 ]);

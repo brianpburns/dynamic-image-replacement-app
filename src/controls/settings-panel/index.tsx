@@ -6,7 +6,6 @@ import { DataStructure } from '../../types';
 import { QuestionMark } from '../icons';
 import {
   ButtomSelector,
-  ColouredSpan,
   Container,
   Error,
   LabelWrapper,
@@ -58,10 +57,9 @@ export const SettingsPanel = ({
   return (
     <Container data-testid="carousel-options">
       <LabelWrapper>
-        <Label>Query Parameter</Label>
+        <Label>Parameter Name</Label>
         <StyledTooltip xAlign="center" yAlign="bottom" trigger={<QuestionMark />}>
-          <ColouredSpan color="#EDEDED">landing page url</ColouredSpan>?
-          <ColouredSpan color="#27CC8D">parameter</ColouredSpan>=<ColouredSpan color="#FFCE00">value</ColouredSpan>
+          This is the name of the parameter you will add to the URL
         </StyledTooltip>
       </LabelWrapper>
       <StyledInputField
@@ -72,10 +70,10 @@ export const SettingsPanel = ({
         placeholder="parameter"
       />
       {error && (
-        <Error>{"Only include the query parameter, which comes before '='. Do not include '?', '&', or '='"}</Error>
+        <Error>{"Only include the parameter name, which comes before '='. Do not include '?', '&', or '='"}</Error>
       )}
       <label htmlFor="total-imate-selector">
-        Number of Options
+        Number of Images
         <TotalOptionsWrapper>
           <ButtomSelector onClick={() => removeOption()}>-</ButtomSelector>
           <TotalOptions>{numOptions + 1}</TotalOptions>
