@@ -1,2 +1,2 @@
-export { DesignPanel } from './design-panel';
+export { ImagesPanel } from './images-panel';
 export { SettingsPanel } from './settings-panel';

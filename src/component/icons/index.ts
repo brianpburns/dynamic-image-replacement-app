@@ -1,2 +1,2 @@
-export { BrushIcon } from './brush-icon';
+export { ImagesIcon } from './images-icon';
 export { CogIcon } from './cog-icon';
