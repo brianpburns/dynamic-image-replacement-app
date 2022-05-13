@@ -8,7 +8,8 @@ export default {
   description: 'Replace images using query params',
   iconUrl:
     'https://app-assets-unbounce-com.s3.amazonaws.com/content-smart-builder-apps/dynamic-image-replacement/icon.svg',
-  categories: [],
+  moreInfo: 'https://documentation.unbounce.com/hc/en-us/articles/5589256233236',
+  categories: ['utility'],
   files: [],
   externalScripts: ['http://localhost:8083/index.js'],
 };
