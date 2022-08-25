@@ -5,8 +5,7 @@ import { ControlPanelProps } from 'unbounce-smart-builder-sdk-types';
 import { DataStructure } from '../../types';
 import { QuestionMark } from '../icons';
 import {
-  ButtomSelector,
-  ColouredSpan,
+  IncrementButton,
   Container,
   Error,
   LabelWrapper,
@@ -32,20 +31,23 @@ export const SettingsPanel = ({
     const optionsLength = options.length;
 
     dispatch((api) => {
-      if (optionsLength <= numOptions && optionsLength < 10) {
+      if (optionsLength < 4) {
         // Type error for .push not existing on api
         (api as any).get('options').push({ src: '', alt: '', queryStringValue: '' });
         api.get('numOptions').set(numOptions + 1);
-      } else if (numOptions < 10) {
-        api.get('queryParam').set(numOptions + 1);
+      } else if (numOptions < 4) {
+        api.get('numOptions').set(numOptions + 1);
       }
     });
   };
 
   const removeOption = () => {
-    dispatch((api) => {
+    dispatch((api: any) => {
       if (numOptions > 1) {
         api.get('numOptions').set(numOptions - 1);
+        api.updateSrc('', numOptions - 1);
+        api.updateAlt('', numOptions - 1);
+        api.updateQueryString('', numOptions - 1);
       }
     });
   };
@@ -58,10 +60,9 @@ export const SettingsPanel = ({
   return (
     <Container data-testid="carousel-options">
       <LabelWrapper>
-        <Label>Query Parameter</Label>
+        <Label>Parameter Name</Label>
         <StyledTooltip xAlign="center" yAlign="bottom" trigger={<QuestionMark />}>
-          <ColouredSpan color="#EDEDED">landing page url</ColouredSpan>?
-          <ColouredSpan color="#27CC8D">parameter</ColouredSpan>=<ColouredSpan color="#FFCE00">value</ColouredSpan>
+          This is the name of the parameter you will add to the URL
         </StyledTooltip>
       </LabelWrapper>
       <StyledInputField
@@ -72,14 +73,18 @@ export const SettingsPanel = ({
         placeholder="parameter"
       />
       {error && (
-        <Error>{"Only include the query parameter, which comes before '='. Do not include '?', '&', or '='"}</Error>
+        <Error>{"Only include the parameter name, which comes before '='. Do not include '?', '&', or '='"}</Error>
       )}
       <label htmlFor="total-imate-selector">
-        Number of Options
+        Number of Images
         <TotalOptionsWrapper>
-          <ButtomSelector onClick={() => removeOption()}>-</ButtomSelector>
+          <IncrementButton onClick={() => removeOption()} disabled={numOptions === 1}>
+            -
+          </IncrementButton>
           <TotalOptions>{numOptions + 1}</TotalOptions>
-          <ButtomSelector onClick={() => addOption()}>+</ButtomSelector>
+          <IncrementButton onClick={() => addOption()} disabled={numOptions === 4}>
+            +
+          </IncrementButton>
         </TotalOptionsWrapper>
       </label>
     </Container>

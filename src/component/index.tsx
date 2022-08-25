@@ -1,7 +1,6 @@
 import { component, Schema } from 'ub-shared';
 
 import DynamicImageReplacement from './components/dynamic-image-replacement';
-import { migrations } from './migrations';
 import { placeholderImageSrc } from './utils/placeholder-image-src';
 
 const schema = Schema.object({
@@ -44,6 +43,4 @@ export const Component = component({
   tags: ['newControls', 'swappable'],
   schema,
   Component: DynamicImageReplacement,
-  version: migrations.length,
-  migrations,
 });

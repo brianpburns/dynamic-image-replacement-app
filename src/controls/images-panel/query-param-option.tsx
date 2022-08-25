@@ -4,8 +4,7 @@ import { DataStructure, Option } from 'src/types';
 import { ControlPanelProps } from 'unbounce-smart-builder-sdk-types';
 
 import { QuestionMark } from '../icons';
-import { StyledInputField, Error, ColouredSpan, LabelWrapper, StyledTooltip } from '../styled';
-import { FieldsWrapper, StyledWrapper } from '../styled';
+import { Error, FieldsWrapper, LabelWrapper, StyledInputField, StyledTooltip, StyledWrapper } from '../styled';
 import { isValidParam } from '../utils/is-valid-param';
 import { AltText } from './alt-text';
 import { ImagePreview } from './image-preview';
@@ -53,23 +52,21 @@ export const QueryParamOption = ({ option, index, dispatch }: Props) => {
         <ImagePreview imagePreview={src} onChange={onSrcChange} />
       </StyledWrapper>
       <LabelWrapper>
-        <Label>Query Parameter Value</Label>
-        <StyledTooltip xAlign="left" yAlign="top" trigger={<QuestionMark />}>
-          <ColouredSpan color="#EDEDED">landing page url</ColouredSpan>?
-          <ColouredSpan color="#FFCE00">parameter</ColouredSpan>=<ColouredSpan color="#27CC8D">value</ColouredSpan>
+        <Label>Parameter Value</Label>
+        <StyledTooltip xAlign="center" yAlign="top" trigger={<QuestionMark />}>
+          This is the value that you pass into the parameter name via the URL to show the correct dynamic image. Value
+          passed in needs to match the value in the settings exactly.
         </StyledTooltip>
       </LabelWrapper>
       <StyledInputField
-        data-testid="query-param-value-input"
+        data-testid="param-value-input"
         value={tempValue}
         onChange={(e) => onChange(e.currentTarget.value)}
         onBlur={onQueryStringChange}
         placeholder="value"
       />
       {error && (
-        <Error>
-          {"Only include the query parameter value, which comes after '='. Do not include '?', '&', or '='"}
-        </Error>
+        <Error>{"Only include the parameter value, which comes after '='. Do not include '?', '&', or '='"}</Error>
       )}
       <AltText value={alt} onBlur={onAltChange} />
     </FieldsWrapper>
