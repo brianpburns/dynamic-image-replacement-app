@@ -21,21 +21,19 @@ const schema = Schema.object({
       queryStringValue: '',
     },
   ]),
-})
-  .extendMutate((data: any) => {
-    return {
-      updateSrc(next: string, index: number) {
-        data.get('options').get(index).get('src').set(next);
-      },
-      updateAlt(next: string, index: number) {
-        data.get('options').get(index).get('alt').set(next);
-      },
-      updateQueryString(next: string, index: number) {
-        data.get('options').get(index).get('queryStringValue').set(next);
-      },
-    };
-  })
-  .noControls();
+}).extendMutate((data: any) => {
+  return {
+    updateSrc(next: string, index: number) {
+      data.get('options').get(index).get('src').set(next);
+    },
+    updateAlt(next: string, index: number) {
+      data.get('options').get(index).get('alt').set(next);
+    },
+    updateQueryString(next: string, index: number) {
+      data.get('options').get(index).get('queryStringValue').set(next);
+    },
+  };
+});
 
 export const Component = component({
   componentTypeId: 'dynamicImageReplacement',
